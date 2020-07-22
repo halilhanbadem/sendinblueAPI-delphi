@@ -1,3 +1,13 @@
+ {
+ *    ██   ██  █████  ██      ██ ██          ██   ██  █████  ███    ██     ██████   █████  ██████  ███████ ███    ███ 
+ *    ██   ██ ██   ██ ██      ██ ██          ██   ██ ██   ██ ████   ██     ██   ██ ██   ██ ██   ██ ██      ████  ████ 
+ *    ███████ ███████ ██      ██ ██          ███████ ███████ ██ ██  ██     ██████  ███████ ██   ██ █████   ██ ████ ██ 
+ *    ██   ██ ██   ██ ██      ██ ██          ██   ██ ██   ██ ██  ██ ██     ██   ██ ██   ██ ██   ██ ██      ██  ██  ██ 
+ *    ██   ██ ██   ██ ███████ ██ ███████     ██   ██ ██   ██ ██   ████     ██████  ██   ██ ██████  ███████ ██      ██ 
+ *                                                                                                                    
+ *
+ *}
+
 unit sendinblueAPI;
 
 interface
@@ -65,13 +75,13 @@ begin
   try
     JSONData := Instance.buildJSON(FromMail, FromName, ToMail,
       ToName, Subject, htmlContent);
-    SetLength(Headers, 3);
-    Headers[0].Create('content-type', 'application/json');
-    Headers[1].Create('accept', 'application/json');
-    Headers[2].Create('api-key', APIKey);
+
+    NetHTTPRequest.CustomHeaders['api-key'] := APIKey;
+    NetHTTPRequest.CustomHeaders['accept'] := 'application/json';
+    NetHTTPRequest.CustomHeaders['content-type'] := 'application/json';
     JSONStream := TStringStream.Create(JSONData, TEncoding.UTF8);
     Result := NetHTTPRequest.Post('https://api.sendinblue.com/v3/smtp/email',
-      JSONStream, nil, Headers).ContentAsString();
+      JSONStream, nil).ContentAsString();
   finally
     NetHTTPClient.Free;
     NetHTTPRequest.Free;
