@@ -65,7 +65,6 @@ var
   NetHTTPRequest: TNetHTTPRequest;
   JSONStream: TStream;
   JSONData: String;
-  Headers: System.TArray<System.Net.URLClient.TNameValuePair>;
   Instance: TsendinblueAPI;
 begin
   Instance := TsendinblueAPI.Create;
