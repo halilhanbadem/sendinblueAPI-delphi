@@ -10,7 +10,6 @@ type
   TMain = class(TForm)
     btnSend: TButton;
     procedure btnSendClick(Sender: TObject);
-    procedure Memo1Change(Sender: TObject);
   private
     { Private declarations }
   public
