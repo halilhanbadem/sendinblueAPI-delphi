@@ -18,7 +18,7 @@ uses
 
 type
   TsendinblueAPI = class
-  private
+  strict private
     function buildJSON(FromMail, FromName, ToMail, ToName, Subject,
       htmlContent: String): string;
   public
@@ -30,7 +30,7 @@ implementation
 
 { TsendinblueAPI }
 
-function TsendinblueAPI.buildJSON(FromMail, FromName, ToMail, ToName, Subject,
+class function TsendinblueAPI.buildJSON(FromMail, FromName, ToMail, ToName, Subject,
   htmlContent: String): string;
 var
   mainJSON, senderJSON, toJSON: TJSONObject;
