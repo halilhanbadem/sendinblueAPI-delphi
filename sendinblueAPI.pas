@@ -19,11 +19,11 @@ uses
 type
   TsendinblueAPI = class
   strict private
-    function buildJSON(FromMail, FromName, ToMail, ToName, Subject,
-      htmlContent: String): string;
+   class function buildJSON(FromMail, FromName, ToMail, ToName, Subject,
+      htmlContent: String): string; static;
   public
     class function sendMail(APIKey, FromMail, FromName, ToMail, ToName, Subject,
-      htmlContent: String): string;
+      htmlContent: String): string; static;
   end;
 
 implementation
@@ -65,14 +65,12 @@ var
   NetHTTPRequest: TNetHTTPRequest;
   JSONStream: TStream;
   JSONData: String;
-  Instance: TsendinblueAPI;
 begin
-  Instance := TsendinblueAPI.Create;
   NetHTTPClient := TNetHTTPClient.Create(nil);
   NetHTTPRequest := TNetHTTPRequest.Create(nil);
   NetHTTPRequest.Client := NetHTTPClient;
   try
-    JSONData := Instance.buildJSON(FromMail, FromName, ToMail,
+    JSONData := buildJSON(FromMail, FromName, ToMail,
       ToName, Subject, htmlContent);
 
     NetHTTPRequest.CustomHeaders['api-key'] := APIKey;
@@ -85,7 +83,6 @@ begin
     NetHTTPClient.Free;
     NetHTTPRequest.Free;
     JSONStream.Free;
-    Instance.Free;
   end;
 end;
 
