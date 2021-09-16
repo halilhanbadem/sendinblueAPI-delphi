@@ -14,7 +14,7 @@ interface
 
 uses
   Classes, SysUtils, System.JSON, System.Net.URLClient, System.Net.HttpClient,
-  System.Net.HttpClientComponent;
+  System.Net.HttpClientComponent, System.StrUtils;
 
 type
   TsendinblueAPI = class
@@ -125,6 +125,8 @@ begin
   NetHTTPRequest := TNetHTTPRequest.Create(nil);
   NetHTTPRequest.Client := NetHTTPClient;
   try
+    Subject := StringReplace(Subject, '"', #39, [rfReplaceAll]);
+    htmlContent := StringReplace(htmlContent, '"', #39, [rfReplaceAll]);
     JSONData := buildJSON(FromMail, FromName, ToMail,
       ToName, Subject, htmlContent, PDFPath);
 

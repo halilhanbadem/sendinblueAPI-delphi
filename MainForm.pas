@@ -49,13 +49,13 @@ procedure TMain.Button1Click(Sender: TObject);
 var
  APIKey, FromMail, FromName, ToMail, ToName, Subject, HTMLContent, PDFBase64: String;
 begin
- FromMail := 'YOUR_EMAIL';
+ FromMail := 'YOUR_MAIL';
  FromName := 'YOUR_NAME';
  ToMail := 'halilhanbadem@gmail.com';
  ToName := 'Halil Han Badem';
  Subject := 'Thank you: sendinblueAPI for Delphi';
- HTMLContent := 'Hi Halil Han! Your api codes are working.';
- APIKey := 'YOUR_V3_API_KEY';
+ HTMLContent := 'Hi Halil Han! <p style="color: blue;">Your api codes are working.</p>';
+ APIKey := 'YOU_V3_API_CODE';
  PDFBase64 := TNetEncoding.Base64.EncodeBytesToString(TFile.ReadAllBytes(Edit1.Text));
  ShowMessage(TsendinblueAPI.sendMailWithPDF(APIKey, FromMail, FromName, ToMail, ToName, Subject, HTMLContent, PDFBase64));
 
