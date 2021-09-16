@@ -4,12 +4,18 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, sendinblueAPI;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, sendinblueAPI, System.NetEncoding, System.IOUtils;
 
 type
   TMain = class(TForm)
     btnSend: TButton;
+    Button1: TButton;
+    Edit1: TEdit;
+    Button2: TButton;
+    OpenDialog1: TOpenDialog;
     procedure btnSendClick(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,5 +44,29 @@ begin
 end;
 
 
+
+procedure TMain.Button1Click(Sender: TObject);
+var
+ APIKey, FromMail, FromName, ToMail, ToName, Subject, HTMLContent, PDFBase64: String;
+begin
+ FromMail := 'YOUR_EMAIL';
+ FromName := 'YOUR_NAME';
+ ToMail := 'halilhanbadem@gmail.com';
+ ToName := 'Halil Han Badem';
+ Subject := 'Thank you: sendinblueAPI for Delphi';
+ HTMLContent := 'Hi Halil Han! Your api codes are working.';
+ APIKey := 'YOUR_V3_API_KEY';
+ PDFBase64 := TNetEncoding.Base64.EncodeBytesToString(TFile.ReadAllBytes(Edit1.Text));
+ ShowMessage(TsendinblueAPI.sendMailWithPDF(APIKey, FromMail, FromName, ToMail, ToName, Subject, HTMLContent, PDFBase64));
+
+end;
+
+procedure TMain.Button2Click(Sender: TObject);
+begin
+ if OpenDialog1.Execute then
+ begin
+   Edit1.Text := OpenDialog1.FileName;
+ end;
+end;
 
 end.
